@@ -1,0 +1,24 @@
+hardstatus off
+vbell off
+#hardstatus alwayslastline " %{= wk} %-w%40L>%{= kb}%n %t%{-}%+w [%h] %-018=%{= kb} %Y/%m/%d %c"
+#hardstatus alwayslastline "%{= wk}  %-w%{= kb}%n %t%{-}%+w  %{= kg}[%h]%{-} %-018=%{= kb} %Y/%m/%d %c "
+hardstatus alwayslastline "%{= wk} %-w%{= kb}%n %t%{-}%+w %-018=%{= kb} %Y/%m/%d %c "
+caption always "%{= kw}%?%F%{= kc}%?[screen #%n] %h"
+#defhstatus I^En:^EtI
+escape /
+bind  other
+
+bind r eval 'echo "resize window"' 'command -c resize'
+bind -c resize ^]  command
+bind -c resize j eval 'resize +1' 'command -c resize'
+bind -c resize k eval 'resize -1' 'command -c resize'
+
+bind  eval 'encoding utf8' '!!!echo "export LANG=ja_JP.UTF-8"' 'echo "encoding utf8 "'
+bind  eval 'encoding euc' '!!!echo "export LANG=ja_JP.eucJP"' 'echo "encodign euc "'
+bind  eval 'encoding sjis' '!!!echo "export LANG=ja_JP.sjis"' 'echo "encodign sjis "'
+
+defbce "on"
+#term xterm-256color
+#term xterm
+termcapinfo xterm*|screen* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+defscrollback 10000
