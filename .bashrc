@@ -7,3 +7,4 @@ fi
 
 # User specific aliases and functions
 alias ll='ls -alG'
+alias vi='vim'
