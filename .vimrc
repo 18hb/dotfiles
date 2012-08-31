@@ -1,7 +1,4 @@
 "------------------------------------------------------------------
-" this file is japanese, euc encoding.
-" これはUFT-8日本語ファイルです
-" (vimの日本語自動判別用の文字列)
 " setting by 18hb 2011.12
 "------------------------------------------------------------------
 "set nocompatible
@@ -57,7 +54,7 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 "nmap ,f :VimFilerBufferDir<CR>
 "nmap ,f :UniteWithBufferDir -buffer-name=files file<CR>
 "nmap ,b :ls<CR>:buf 
-"nmap ,f :e %:p:h<CR>
+nmap ,f :e %:p:h<CR>
 nmap <SPACE>w 
 nmap <SPACE>n :bn<CR>
 nmap <SPACE>p :bp<CR>
