@@ -45,8 +45,8 @@ set hid
 set hlsearch
 
 set t_Co=256
-"colorscheme wombat256mod
-colorscheme molokai
+colorscheme wombat256mod
+"colorscheme molokai
 
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
