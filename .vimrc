@@ -1,25 +1,32 @@
 "------------------------------------------------------------------
 " setting by 18hb 2011.12
 "------------------------------------------------------------------
-"set nocompatible
-"filetype plugin indent off
-"
-"if has('vim_starting')
-"  set runtimepath+=~/.vim/bundle/neobundle.vim
-"  call neobundle#rc(expand('~/.vim/bundle'))
-"endif
-"
-"NeoBundle 'Shougo/neobundle.vim'
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/vimproc'
-"NeoBundle 'Shougo/vimshell'
-"NeoBundle 'Shougo/vimfiler'
-"NeoBundle 'thinca/vim-quickrun'         " [\r] to run
-"NeoBundle 'thinca/vim-ref'              " [K] to show reference
-"NeoBundle 'jimsei/winresizer'
-"NeoBundle 'surround.vim'
-"
-"filetype plugin indent on
+set nocompatible               " be iMproved
+filetype off
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" originalrepos on github
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak',
+  \    },
+  \ }
+NeoBundle 'Shougo/neocomplcache'
+
+filetype plugin indent on     " required!
+
+" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+    \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+endif
 "------------------------------------------------------------------
 
 if filereadable(expand('~/.vimrc.jp'))
@@ -31,8 +38,8 @@ set list
 "set listchars=tab:>.,eol:^
 set listchars=tab:>.,trail:_
 set nu
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set laststatus=2
 set expandtab
 set scrolloff=5
