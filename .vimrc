@@ -20,6 +20,7 @@ NeoBundle 'Shougo/vimproc', {
   \    },
   \ }
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/unite.vim'
 
 filetype plugin indent on     " required!
 
@@ -55,11 +56,12 @@ colorscheme wombat256mod
 
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
-"nmap ,b :Unite buffer<CR>
+"nmap ,f :e %:p:h<CR>
 "nmap ,f :VimFilerBufferDir<CR>
 "nmap ,f :UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 "nmap ,b :ls<CR>:buf 
-nmap ,f :e %:p:h<CR>
+nnoremap <silent> ,b :<C-u>Unite buffer<CR>
 nmap <SPACE>w 
 nmap <SPACE>n :bn<CR>
 nmap <SPACE>p :bp<CR>
@@ -157,4 +159,13 @@ function! s:do_git_diff_aware_gf(command)
 endfunction
 
 let g:neocomplcache_enable_at_startup = 1
-set pastetoggle=<F2>
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  "ESCでuniteを終了
+  "nmap <buffer> <ESC> <Plug>(unite_exit)
+  "入力モードのときjjでノーマルモードに移動
+  "imap <buffer> jj <Plug>(unite_insert_leave)
+  "入力モードのときctrl+wでバックスラッシュも削除
+  "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+endfunction"}}}
