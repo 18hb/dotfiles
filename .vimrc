@@ -157,3 +157,5 @@ function! s:do_git_diff_aware_gf(command)
     return a:command
   endif
 endfunction
+
+let g:neocomplcache_enable_at_startup = 1
