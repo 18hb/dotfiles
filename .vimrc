@@ -1,6 +1,8 @@
 "------------------------------------------------------------------
 " setting by 18hb 2011.12
 "------------------------------------------------------------------
+source ~/.vim/encode.vim
+
 set nocompatible               " be iMproved
 filetype off
 
@@ -28,10 +30,6 @@ if neobundle#exists_not_installed_bundles()
   echomsg 'Please execute ":NeoBundleInstall" command.'
 endif
 "------------------------------------------------------------------
-
-if filereadable(expand('~/.vimrc.jp'))
-  source ~/.vimrc.jp
-endif
 
 syntax on
 set list
@@ -159,3 +157,4 @@ function! s:do_git_diff_aware_gf(command)
 endfunction
 
 let g:neocomplcache_enable_at_startup = 1
+set pastetoggle=<F2>
