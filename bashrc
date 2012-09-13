@@ -7,6 +7,7 @@ export PATH=$HOME/bin:$PATH
 
 alias ll='ls -alF'
 alias vi='vim'
+alias tmux='tmux -2'
 
 source /etc/bash_completion.d/git
 
