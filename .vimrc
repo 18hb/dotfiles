@@ -160,6 +160,7 @@ endfunction
 
 let g:neocomplcache_enable_at_startup = 1
 
+let g:unite_enable_start_insert = 1
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
   "ESCでuniteを終了
@@ -168,4 +169,7 @@ function! s:unite_my_settings()"{{{
   "imap <buffer> jj <Plug>(unite_insert_leave)
   "入力モードのときctrl+wでバックスラッシュも削除
   "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-h> <Plug>(unite_delete_backward_path)
+  "入力モードのとき^[^[で終了
+  imap <silent><buffer> <ESC><ESC> <ESC>q
 endfunction"}}}
