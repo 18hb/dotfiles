@@ -170,6 +170,5 @@ function! s:unite_my_settings()"{{{
   "入力モードのときctrl+wでバックスラッシュも削除
   "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
   imap <buffer> <C-h> <Plug>(unite_delete_backward_path)
-  "入力モードのとき^[^[で終了
-  imap <silent><buffer> <ESC><ESC> <ESC>q
+  nmap <silent><buffer> <ESC> q
 endfunction"}}}
