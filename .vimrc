@@ -168,7 +168,6 @@ function! s:unite_my_settings()"{{{
   "入力モードのときjjでノーマルモードに移動
   "imap <buffer> jj <Plug>(unite_insert_leave)
   "入力モードのときctrl+wでバックスラッシュも削除
-  "imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  imap <buffer> <C-h> <Plug>(unite_delete_backward_path)
-  nmap <silent><buffer> <ESC> q
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  "nmap <silent><buffer> <ESC> q
 endfunction"}}}
