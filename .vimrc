@@ -49,6 +49,7 @@ set ignorecase
 set smartcase
 set hid
 set hlsearch
+set backspace=indent,eol,start
 
 set t_Co=256
 colorscheme wombat256mod
