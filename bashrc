@@ -3,13 +3,12 @@
 #fi
 
 export LANG=ja_JP.UTF-8
-export PATH=$HOME/bin:$PATH
 
 alias ll='ls -alF'
 alias vi='vim'
 alias tmux='tmux -2'
 
-source /etc/bash_completion.d/git
+#source /etc/bash_completion.d/git
 
 if [ "$USER_RCFILE_LOADED" = "" ]; then
     export USER_RCFILE_LOADED=1
