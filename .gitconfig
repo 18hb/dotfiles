@@ -3,3 +3,7 @@
 [core]
 	editor = vim -c \"set fenc=utf-8\"
 	autocrlf = input
+[tig]
+	ignore-space = some
+[tig "color"]
+    cursor = "default gray"
