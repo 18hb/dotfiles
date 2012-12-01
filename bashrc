@@ -4,7 +4,8 @@
 
 export LANG=ja_JP.UTF-8
 
-alias ll='ls -alF'
+alias ls='ls -G'
+alias ll='ls -al'
 alias vi='vim'
 alias tmux='tmux -2'
 
