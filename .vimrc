@@ -21,6 +21,7 @@ NeoBundle 'Shougo/vimproc', {
   \ }
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'tsukkee/unite-tag'
 
 filetype plugin indent on     " required!
 
@@ -52,9 +53,11 @@ set hlsearch
 set backspace=indent,eol,start
 
 set t_Co=256
-colorscheme wombat256mod
+colorscheme jellybeans
+"colorscheme wombat256mod
 "colorscheme molokai
 
+set tags=tags;
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 "nmap ,f :e %:p:h<CR>
@@ -84,6 +87,11 @@ endif
 
 hi ZenkakuSpace cterm=underline ctermfg=white ctermbg=blue
 au BufRead,BufNew * match ZenkakuSpace /　/
+
+autocmd BufEnter *
+\   if empty(&buftype)
+\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|  endif
 
 let g:quickrun_config = {}
 let g:quickrun_config['_'] = {
