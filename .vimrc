@@ -1,39 +1,48 @@
 "------------------------------------------------------------------
-" setting by 18hb 2011.12
+" setting by 18hb 2014.06
 "------------------------------------------------------------------
 source ~/.vim/encode.vim
 
-set nocompatible               " be iMproved
-filetype off
-
+"------------------------------------------------------------------
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-endif
-call neobundle#rc(expand('~/.vim/bundle/'))
+  set nocompatible               " Be iMproved
 
-" originalrepos on github
-NeoBundle 'Shougo/neobundle.vim'
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
   \     'mac' : 'make -f make_mac.mak',
   \     'unix' : 'make -f make_unix.mak',
   \    },
   \ }
-NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'sudo.vim'
 
-filetype plugin indent on     " required!
+call neobundle#end()
 
-" Installation check.
-if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
-    \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-endif
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 "------------------------------------------------------------------
 
 syntax on
+set ambiwidth=double
 set list
 "set listchars=tab:>.,eol:^
 set listchars=tab:>.,trail:_
@@ -93,26 +102,6 @@ autocmd BufEnter *
 \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
 \|  endif
 
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {
-    \ 'split' : '',
-    \ 'runner' : 'vimproc:500'
-\ }
-set splitbelow
-
-let g:quickrun_config['php.phpunit'] = {}
-let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
-let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
-
-augroup QuickRunPHPUnit
-   autocmd!
-   autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
-augroup END
-
-"let g:unite_enable_start_insert=1
-let g:ref_phpmanual_path = expand('~/doc/phpmanual')
-let g:ref_phpmanual_cmd = 'w3m -dump %s'
-
 
 function! GetB()
     let c = matchstr(getline('.'), '.', col('.') - 1)
@@ -166,8 +155,6 @@ function! s:do_git_diff_aware_gf(command)
     return a:command
   endif
 endfunction
-
-let g:neocomplcache_enable_at_startup = 1
 
 let g:unite_enable_start_insert = 1
 autocmd FileType unite call s:unite_my_settings()
