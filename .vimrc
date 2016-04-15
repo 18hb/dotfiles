@@ -28,6 +28,7 @@ NeoBundle 'Shougo/vimproc', {
   \    },
   \ }
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'sudo.vim'
 
@@ -73,7 +74,7 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 "nmap ,f :VimFilerBufferDir<CR>
 "nmap ,f :UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-"nmap ,b :ls<CR>:buf 
+nnoremap <silent> ,r :<C-u>Unite file_mru<CR>
 nnoremap <silent> ,b :<C-u>Unite buffer<CR>
 nmap <SPACE>w 
 nmap <SPACE>n :bn<CR>
