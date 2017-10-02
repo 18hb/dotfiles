@@ -1,49 +1,49 @@
-"------------------------------------------------------------------
-" setting by 18hb 2014.06
-"------------------------------------------------------------------
-source ~/.vim/encode.vim
-
-"------------------------------------------------------------------
-if has('vim_starting')
+"dein Scripts-----------------------------
+if &compatible
   set nocompatible               " Be iMproved
+endif
+
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" Required:
+execute 'set runtimepath+=' . s:dein_repo_dir
+
+" Required:
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  " Let dein manage dein
+  " Required:
+  call dein#add(s:dein_repo_dir)
+
+  " Add or remove your plugins here:
+  " call dein#add('Shougo/neosnippet.vim')
+  " call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/denite.nvim')
+  call dein#add('nanotech/jellybeans.vim')
+  call dein#add('w0ng/vim-hybrid')
+
+  " You can specify revision/branch/tag.
+  " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
   " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call dein#end()
+  call dein#save_state()
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'mac' : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak',
-  \    },
-  \ }
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'sudo.vim'
-
-call neobundle#end()
-
-" Required:
 filetype plugin indent on
+syntax enable
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"------------------------------------------------------------------
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
 
-syntax on
-set ambiwidth=double
+"End dein Scripts-------------------------
+
+"syntax on
 set list
 "set listchars=tab:>.,eol:^
 set listchars=tab:>.,trail:_
@@ -61,19 +61,17 @@ set smartcase
 set hid
 set hlsearch
 set backspace=indent,eol,start
+set cursorline
 
-set t_Co=256
+"set t_Co=256
 colorscheme jellybeans
-"colorscheme wombat256mod
-"colorscheme molokai
-
-set tags=tags;
+"colorscheme hybrid
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 "nmap ,f :e %:p:h<CR>
-"nmap ,f :VimFilerBufferDir<CR>
-"nmap ,f :UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+"nnoremap <silent> ,f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+"nnoremap <silent> ,f :<C-u>DeniteBufferDir<CR>
+nnoremap <silent> ,f :<C-u>Denite file_rec<CR>
 nnoremap <silent> ,r :<C-u>Unite file_mru<CR>
 nnoremap <silent> ,b :<C-u>Unite buffer<CR>
 nmap <SPACE>w 
@@ -89,20 +87,8 @@ else
   set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %f%=\ %l,%c%V%8P
 endif
 
-"augroup InsertHook
-"autocmd!
-"autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-"autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
-"augroup END
-
 hi ZenkakuSpace cterm=underline ctermfg=white ctermbg=blue
 au BufRead,BufNew * match ZenkakuSpace /　/
-
-autocmd BufEnter *
-\   if empty(&buftype)
-\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|  endif
-
 
 function! GetB()
     let c = matchstr(getline('.'), '.', col('.') - 1)
@@ -132,39 +118,3 @@ func! String2Hex(str)
     endwhile
     return out
 endfunc
-
-" git-diff-aware version of gf commands.
-nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
-"nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
-"nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
-"nnoremap <expr> <C-w><C-f>  <SID>do_git_diff_aware_gf('<C-w><C-f>')
-"nnoremap <expr> <C-w>F  <SID>do_git_diff_aware_gf('<C-w>F')
-"nnoremap <expr> <C-w>gf  <SID>do_git_diff_aware_gf('<C-w>gf')
-"nnoremap <expr> <C-w>gF  <SID>do_git_diff_aware_gf('<C-w>gF')
-
-function! s:do_git_diff_aware_gf(command)
-  let target_path = expand('<cfile>')
-  if target_path =~# '^[ab]/'  " with a peculiar prefix of git-diff(1)?
-    if filereadable(target_path) || isdirectory(target_path)
-      return a:command
-    else
-      " BUGS: Side effect - Cursor position is changed.
-      let [_, c] = searchpos('\f\+', 'cenW')
-      return c . '|' . 'v' . (len(target_path) - 2 - 1) . 'h' . a:command
-    endif
-  else
-    return a:command
-  endif
-endfunction
-
-let g:unite_enable_start_insert = 1
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-  "ESCでuniteを終了
-  "nmap <buffer> <ESC> <Plug>(unite_exit)
-  "入力モードのときjjでノーマルモードに移動
-  "imap <buffer> jj <Plug>(unite_insert_leave)
-  "入力モードのときctrl+wでバックスラッシュも削除
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  "nmap <silent><buffer> <ESC> q
-endfunction"}}}
